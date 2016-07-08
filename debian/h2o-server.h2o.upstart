@@ -1,0 +1,4 @@
+start on filesystem and static-network-up
+stop on runlevel [016]
+
+exec /usr/bin/h2o -m master -c /etc/h2o/h2o.conf

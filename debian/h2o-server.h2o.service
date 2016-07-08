@@ -1,0 +1,12 @@
+[Unit]
+Description=h2o
+After=network.target
+ 
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/h2o -c /etc/h2o/h2o.conf -t
+ExecStart=/usr/bin/h2o -c /etc/h2o/h2o.conf -m master
+ExecReload=/bin/kill -HUP $MAINPID
+ 
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: h2o
+Source: https://github.com/h2o/h2o
+
+Files: *
+Copyright: Copyright (c) 2014 DeNA Co., Ltd.
+License: Expat
+
+Files: debian/*
+Copyright: Sorah Fukumori <her@sorah.jp>
+License: Expat

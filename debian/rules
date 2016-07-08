@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+	    -DWITH_BUNDLED_SSL=on \
+	    -DWITH_MRUBY=on
+
+override_dh_auto_clean:
+	dh_auto_clean
+	$(MAKE) -C deps/mruby clean || :
+	rm -f include/h2o.h.gch deps/mruby/bin/mruby-config || :
+
+override_dh_auto_install:
+	dh_auto_install
+	dh_installinit --name=h2o -r --no-start
+	install -m 755 -g root -d $(CURDIR)/debian/h2o-server/etc/h2o
+	install -m 644 -g root $(CURDIR)/debian/h2o.conf $(CURDIR)/debian/h2o-server/etc/h2o/h2o.conf
+
+%:
+	dh $@ 

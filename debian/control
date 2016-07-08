@@ -1,0 +1,14 @@
+Source: h2o-server
+Section: misc
+Priority: optional
+Maintainer: Sorah Fukumori <her@sorah.jp>
+Build-Depends: debhelper, cmake, curl, libscope-guard-perl, libtest-tcp-perl, libyaml-dev, liburi-perl, libio-socket-ssl-perl, libssl-dev, openssl, ruby-dev, bison
+Standards-Version: 3.9.4
+Homepage: https://github.com/h2o/h2o
+Vcs-Git: https://github.com/h2o/h2o.git
+Vcs-Browser: https://github.com/h2o/h2o
+
+Package: h2o-server
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, openssl, curl
+Description: an optimized HTTP server with support for HTTP/1.x and HTTP/2
