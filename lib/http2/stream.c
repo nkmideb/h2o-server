@@ -32,7 +32,7 @@ static size_t sz_min(size_t x, size_t y)
 }
 
 h2o_http2_stream_t *h2o_http2_stream_open(h2o_http2_conn_t *conn, uint32_t stream_id, h2o_req_t *src_req,
-                                          const h2o_http2_priority_t *received_priority)
+                                          const h2o_http2_priority_t *received_priority, int is_prio)
 {
     h2o_http2_stream_t *stream = h2o_mem_alloc(sizeof(*stream));
 
@@ -54,7 +54,7 @@ h2o_http2_stream_t *h2o_http2_stream_open(h2o_http2_conn_t *conn, uint32_t strea
         memset(&stream->req.upgrade, 0, sizeof(stream->req.upgrade));
     stream->req._ostr_top = &stream->_ostr_final;
 
-    h2o_http2_conn_register_stream(conn, stream);
+    h2o_http2_conn_register_stream(conn, stream, is_prio);
 
     ++conn->num_streams.priority.open;
     stream->_num_streams_slot = &conn->num_streams.priority;
@@ -274,7 +274,7 @@ CancelPush:
     h2o_http2_stream_set_state(conn, stream, H2O_HTTP2_STREAM_STATE_END_STREAM);
     h2o_linklist_insert(&conn->_write.streams_to_proceed, &stream->_refs.link);
     if (stream->push.promise_sent) {
-        h2o_http2_encode_rst_stream_frame(&conn->_write.buf, stream->stream_id, H2O_HTTP2_ERROR_INTERNAL);
+        h2o_http2_encode_rst_stream_frame(&conn->_write.buf, stream->stream_id, -H2O_HTTP2_ERROR_INTERNAL);
         h2o_http2_conn_request_write(conn);
     }
     return -1;

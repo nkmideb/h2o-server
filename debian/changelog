@@ -1,3 +1,9 @@
+h2o-server (2.0.6-0nkmi1) unstable; urgency=medium
+
+  * bump
+
+ -- Sorah Fukumori <her@sorah.jp>  Fri, 08 Jul 2016 08:47:58 +0000
+
 h2o-server (2.0.1-0nkmi1~xenial) xenial; urgency=medium
 
   * init
